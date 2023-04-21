@@ -46,15 +46,15 @@ public class SecurityConfig {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults());    // Enable OpenID Connect 1.0
-        http
-                // Redirect to the login page when not authenticated from the
-                // authorization endpoint
-                .exceptionHandling((exceptions) -> exceptions
+        // Redirect to the login page when not authenticated from the
+        // authorization endpoint
+        http.exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(
                                 new LoginUrlAuthenticationEntryPoint("/login"))
                 )
                 // Accept access tokens for User Info and/or Client Registration
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+
 
         return http.build();
     }
